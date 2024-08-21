@@ -1,20 +1,19 @@
 const http = require('http');
+const url = require('url');
 
-// Create an HTTP server
 const server = http.createServer((req, res) => {
-    if (req.method === 'GET' && req.url === '/') {
+    const parsedUrl = url.parse(req.url, true);
+
+    if (req.method === 'GET' && parsedUrl.pathname === '/search') {
+        const query = parsedUrl.query;
         res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.end('Home Page');
-    } else if (req.method === 'GET' && req.url === '/about') {
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.end('About Page');
+        res.end(`Search results for: ${query.q}`);
     } else {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Page Not Found');
     }
 });
 
-// The server listens on port 3000
 server.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
 });
