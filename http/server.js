@@ -2,11 +2,16 @@ const http = require('http');
 
 // Create an HTTP server
 const server = http.createServer((req, res) => {
-    // Set the response header
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    
-    // Send the response body
-    res.end('Hello, World!\n');
+    if (req.method === 'GET' && req.url === '/') {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Home Page');
+    } else if (req.method === 'GET' && req.url === '/about') {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('About Page');
+    } else {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Page Not Found');
+    }
 });
 
 // The server listens on port 3000
