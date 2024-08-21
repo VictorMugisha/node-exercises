@@ -3,11 +3,11 @@ const url = require('url');
 
 const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
-
+    console.log(parsedUrl)
     if (req.method === 'GET' && parsedUrl.pathname === '/search') {
         const query = parsedUrl.query;
         res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.end(`Search results for: ${query.q}`);
+        res.end(`Search results for: ${query.hello}`);
     } else {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Page Not Found');
